@@ -16,7 +16,7 @@
                         <thead class="thead-light">
                             <tr>
                                 <th>Name</th>
-                                <th style="width: 200px">Actions</th>
+                                <th style="width: 400px">Actions</th>
                             </tr>
                         </thead>
                         <tbody>

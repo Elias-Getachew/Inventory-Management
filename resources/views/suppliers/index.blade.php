@@ -17,7 +17,7 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
-                                <th class="text-center" style="width: 200px">Actions</th>
+                                <th class="text-center" style="width: 400px">Actions</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -5,7 +5,7 @@
         <h1 class="text-light mb-4">Create Product</h1>
         <div class="card bg-dark shadow-sm">
             <div class="card-body">
-                <form action="{{ route('products.store') }}" method="POST">
+                <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group mb-3">
                         <label for="name" class="form-label text-light">Name</label>
@@ -36,6 +36,13 @@
                     <div class="form-group mb-4">
                         <label for="quantity" class="form-label text-light">Quantity</label>
                         <input type="number" class="form-control bg-secondary text-light border-0" id="quantity" name="quantity" placeholder="Enter product quantity" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="photo">Product Photo</label>
+                        <input type="file" name="photo" class="form-control @error('photo') is-invalid @enderror">
+                        @error('photo')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-success w-100">Create Product</button>
                 </form>

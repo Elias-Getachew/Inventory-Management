@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -24,8 +25,27 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        Product::create($request->all());
-        return redirect()->route('products.index');
+        // **Validation**
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
+            'supplier_id' => 'required|exists:suppliers,id',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        // **Handling Photo Upload**
+        if ($request->hasFile('photo')) {
+            $imageName = time().'_'.uniqid().'.'.$request->photo->extension();
+            $request->photo->storeAs('public/products', $imageName);
+            $validatedData['photo'] = 'products/'.$imageName;
+        }
+
+        // **Creating the Product**
+        Product::create($validatedData);
+
+        return redirect()->route('products.index')->with('success', 'Product created successfully!');
     }
 
     public function show(Product $product)
@@ -42,13 +62,44 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        $product->update($request->all());
-        return redirect()->route('products.index');
+        // **Validation**
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
+            'supplier_id' => 'required|exists:suppliers,id',
+            'quantity'=> 'nullable',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        // **Handling Photo Upload**
+        if ($request->hasFile('photo')) {
+            // Delete old photo if exists
+            if ($product->photo && Storage::exists('public/'.$product->photo)) {
+                Storage::delete('public/'.$product->photo);
+            }
+
+            $imageName = time().'_'.uniqid().'.'.$request->photo->extension();
+            $request->photo->storeAs('public/products', $imageName);
+            $validatedData['photo'] = 'products/'.$imageName;
+        }
+
+        // **Updating the Product**
+        $product->update($validatedData);
+
+        return redirect()->route('products.index')->with('success', 'Product updated successfully!');
     }
 
     public function destroy(Product $product)
     {
+        // **Delete photo if exists**
+        if ($product->photo && Storage::exists('public/'.$product->photo)) {
+            Storage::delete('public/'.$product->photo);
+        }
+
         $product->delete();
-        return redirect()->route('products.index');
+
+        return redirect()->route('products.index')->with('success', 'Product deleted successfully!');
     }
 }

@@ -1,35 +1,5 @@
 @extends('layouts.app')
 
-{{-- @section('content')
-    <div class="container">
-        <h1 class="mb-4">Dashboard</h1>
-
-        <div class="row">
-            <div class="col-md-4">
-                <a href="{{ route('customers.index') }}" class="btn btn-primary btn-block">Manage Customers</a>
-            </div>
-            <div class="col-md-4">
-                <a href="{{ route('categories.index') }}" class="btn btn-secondary btn-block">Manage Categories</a>
-            </div>
-            <div class="col-md-4">
-                <a href="{{ route('suppliers.index') }}" class="btn btn-success btn-block">Manage Suppliers</a>
-            </div>
-        </div>
-
-        <div class="row mt-3">
-            <div class="col-md-4">
-                <a href="{{ route('products.index') }}" class="btn btn-info btn-block">Manage Products</a>
-            </div>
-            <div class="col-md-4">
-                <a href="{{ route('purchases.index') }}" class="btn btn-warning btn-block">Manage Purchases</a>
-            </div>
-            <div class="col-md-4">
-                <a href="{{ route('sales.index') }}" class="btn btn-danger btn-block">Manage Sales</a>
-            </div>
-        </div>
-    </div>
-@endsection --}}
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -217,10 +187,8 @@
   <aside class="main-sidebar">
     <!-- sidebar-->
     <section class="sidebar position-relative">
-    <div class="d-flex align-items-center logo-box justify-content-start d-md-block d-none">  
-      <!-- Logo -->
+    {{-- <div class="d-flex align-items-center logo-box justify-content-start d-md-block d-none">  
       <a href="index.html" class="logo">
-        <!-- logo-->
         <div class="logo-mini">
           <span class="light-logo"><img src="assets/images/logo-letter.png" alt="logo"></span>
         </div>
@@ -228,11 +196,11 @@
           <span class="light-logo fs-36 fw-700">CRM<span class="text-primary">i</span></span>
         </div>
       </a>  
-    </div> 
+    </div>  --}}
     <div class="user-profile my-15 px-20 py-10 b-1 rounded10 mx-15">
       <div class="d-flex align-items-center justify-content-between">      
         <div class="image d-flex align-items-center">
-            <img src="assets/images/avatar/avatar-13.png" class="rounded-0 me-10" alt="User Image">
+            {{-- <img src="" class="rounded-0 me-10" alt="User Image"> --}}
           <div>
             <h4 class="mb-0 fw-600">Jassa</h4>
             <p class="mb-0">Super Admin</p>
@@ -320,7 +288,7 @@
         
         </ul>
         
-        <div class="sidebar-widgets">
+        {{-- <div class="sidebar-widgets">
           <div class="mx-25 mb-30 pb-20 side-bx bg-primary-light rounded20">
           <div class="text-center">
             <img src="assets/images/svg-icon/color-svg/custom-17.svg" class="sideimg p-5" alt="">
@@ -333,7 +301,7 @@
         <div class="copyright text-center m-25">
           <p><strong class="d-block">Jassa</strong>  <script>document.write(new Date().getFullYear())</script> </p>
         </div>
-        </div>
+        </div> --}}
       </div>
     </div>
     </section>
@@ -350,11 +318,11 @@
             <div class="box-body">
               <div class="d-flex align-items-center justify-content-between">
                 <div>
-                  <div id="progressbar11" class="mx-auto w-80 position-relative"></div>
+                  <div  class="mx-auto w-60 position-relative"></div>
                 </div>
                 <div>
-                  <h4 class="mt-0 text-white">Store Status</h4>
-                  <h3 class="fw-500 my-0 text-white">Good</h3>
+                  <h4 class="mt-0 text-white">Total Customers</h4>
+                  <h3 class="fw-500 my-0 text-white">{{$customers}}</h3>
                 </div>
               </div>
             </div>
@@ -369,7 +337,7 @@
                 </div>
                 <div>
                   <h4 class="mt-0">Total Sales</h4>
-                  <h3 class="fw-500 my-0">$314k</h3>
+                  <h3 class="fw-500 my-0">{{$sales}}</h3>
                 </div>
               </div>
             </div>
@@ -379,12 +347,12 @@
           <div class="box">
             <div class="box-body">
               <div class="d-flex align-items-center justify-content-between">
-                <div class="w-80 h-80 rounded-circle bg-success-light fs-40 text-center l-h-85">
-                  <span class="icon-Dollar"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
-                </div>
+                {{-- <div class="w-60 h-80 rounded-circle bg-success-light fs-40 text-center l-h-85">
+                  <span ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </div> --}}
                 <div>
-                  <h4 class="mt-0">Total Profit</h4>
-                  <h3 class="fw-500 my-0">$90k</h3>
+                  <h4 class="mt-0">Total Products Available-</h4>
+                  <h3 class="fw-500 my-0">{{$products}}</h3>
                 </div>
               </div>
             </div>
@@ -398,8 +366,8 @@
                   <span class="icon-Money"><span class="path1"></span><span class="path2"></span></span>
                 </div>
                 <div>
-                  <h4 class="mt-0">Total Revenue</h4>
-                  <h3 class="fw-500 my-0">$9102k</h3>
+                  <h4 class="mt-0">Total Suppliers</h4>
+                  <h3 class="fw-500 my-0">{{$suppliers}}</h3>
                 </div>
               </div>
             </div>
@@ -1181,7 +1149,7 @@
                             Nice to meet you Anne.<br>How can i help you?
                         </div>
                     </div>
-                </div><!--chat-log -->
+                </div>
             </div>
             <div class="chat-input">      
                 <form>
@@ -1194,10 +1162,7 @@
     </div>
   </div>
   
-  <!-- Page Content overlay -->
-  
-  
-  <!-- Vendor JS -->
+
   <script src="assets/js/vendors.min.js"></script>
   <script src="assets/js/chat-popup.js"></script>
     <script src="assets/js/feather.min.js"></script>
@@ -1206,11 +1171,9 @@
   <script src="assets/js/progressbar.js"></script>
   <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
   <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-  <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>  
   <script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
   <script src="https://cdn.amcharts.com/lib/4/geodata/worldLow.js"></script>
   
-  <!-- CRMi App -->
   <script src="assets/js/template.js"></script>
   <script src="assets/js/dashboard.js"></script>
   

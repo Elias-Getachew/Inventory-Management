@@ -15,6 +15,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('supplier_id')->constrained()->onDelete('cascade');
             $table->decimal('price', 8, 2);
             $table->integer('quantity');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +23,7 @@ class CreateProductsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('products');
+        $table->dropColumn('photo');
     }
 }
 

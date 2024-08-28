@@ -13,17 +13,25 @@
                     <table class="table table-hover table-dark table-striped table-bordered">
                         <thead class="thead-light">
                             <tr>
+                                <th>Photo</th>
                                 <th>Name</th>
                                 <th>Category</th>
                                 <th>Supplier</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
-                                <th class="text-center" style="width: 200px">Actions</th>
+                                <th class="text-center" style="width: 400px">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($products as $product)
                                 <tr>
+                                    <td>
+                                    @if($product->photo)
+                                        <img src="{{ asset('storage/'.$product->photo) }}" alt="{{ $product->name }}" width="50">
+                                    @else
+                                        <img src="{{ asset('images/default-product.png') }}" alt="Default Image" width="50">
+                                    @endif
+                                    </td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->category->name }}</td>
                                     <td>{{ $product->supplier->name }}</td>

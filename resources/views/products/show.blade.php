@@ -6,6 +6,11 @@
         <div class="card bg-dark shadow-sm">
             <div class="card-body">
                 <h5 class="card-title text-light">{{ $product->name }}</h5>
+            @if($product->photo)
+                <img src="{{ asset('storage/'.$product->photo) }}" alt="{{ $product->name }}" class="img-fluid mb-3" style="max-width: 300px;">
+            @else
+                <img src="{{ asset('images/default-product.png') }}" alt="Default Image" class="img-fluid mb-3" style="max-width: 300px;">
+            @endif
                 <p class="card-text text-light"><strong>Category:</strong> {{ $product->category->name }}</p>
                 <p class="card-text text-light"><strong>Supplier:</strong> {{ $product->supplier->name }}</p>
                 <p class="card-text text-light"><strong>Price:</strong> ${{ $product->price }}</p>

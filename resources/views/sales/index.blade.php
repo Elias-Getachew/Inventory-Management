@@ -18,7 +18,7 @@
                                 <th>Quantity</th>
                                 <th>Total Price</th>
                                 <th>Date</th>
-                                <th class="text-center" style="width: 200px">Actions</th>
+                                <th class="text-center" style="width: 400px">Actions</th>
                             </tr>
                         </thead>
                         <tbody>

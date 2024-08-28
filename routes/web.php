@@ -1,20 +1,34 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\PurchaseController;
-use App\Http\Controllers\SaleController;
+use App\Models\Sale;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Customer;
+use App\Models\Supplier;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SupplierController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/ecommerce', function () {
+    return view('ecommerce.home');
+});
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $customers = Customer::count();
+    $suppliers = Supplier::count();
+    $categories = Category::count();
+    $products = Product::count();
+    $sales = Sale::count();
+    return view('dashboard',compact('customers','suppliers','categories','products','sales'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
