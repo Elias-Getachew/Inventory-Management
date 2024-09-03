@@ -19,7 +19,12 @@ Route::get('/', function () {
 });
 
 Route::get('/ecommerce', function () {
-    return view('ecommerce.home');
+    $customers = Customer::all();
+    $suppliers = Supplier::all();
+    $categories = Category::all();
+    $products = Product::all();
+    $sales = Sale::all();
+    return view('ecommerce.home',compact('customers','suppliers','categories','products','sales'));
 });
 
 Route::get('/dashboard', function () {
