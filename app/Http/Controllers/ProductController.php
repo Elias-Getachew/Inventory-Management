@@ -33,6 +33,7 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'supplier_id' => 'required|exists:suppliers,id',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'quantity' => 'nullable|string',
         ]);
 
         // **Handling Photo Upload**

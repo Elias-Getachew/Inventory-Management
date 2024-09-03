@@ -13,14 +13,22 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SupplierController;
-
+use App\Http\Controllers\EcommerceController;
+use App\Http\Controllers\CartController;
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/ecommerce', function () {
-    return view('ecommerce.home');
-});
+// Route::get('/ecommerce', function () {
+//     return view('ecommerce.home');
+// });
+ Route::get('/ecommerce', [EcommerceController::class, 'index'])->name('ecommerce.index');
+Route::get('cart', [cartController::class, 'cart'])->name('cart');
+Route::get('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add_to_cart');
+Route::patch('/update-cart', [CartController::class, 'update'])->name('update_cart');
+Route::delete('/remove-from-cart', [CartController::class, 'remove'])->name('remove_from_cart');
+
+// Route::get('/category/{id}', [EcommerceController::class, 'filterByCategory'])->name('products.filter');
 
 Route::get('/dashboard', function () {
     $customers = Customer::count();
