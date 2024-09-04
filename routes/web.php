@@ -70,4 +70,15 @@ Route::middleware('auth')->group(function () {
     Route::resource('sales', SaleController::class);
 });
 
+Route::group(['middleware' => [  'auth', 'role:admin']], function () {
+   Route::get('/dashboard', function () {
+    $customers = Customer::count();
+    $suppliers = Supplier::count();
+    $categories = Category::count();
+    $products = Product::count();
+    $sales = Sale::count();
+    return view('dashboard',compact('customers','suppliers','categories','products','sales'));
+})->name('dashboard');
+
+});
 require __DIR__.'/auth.php';
