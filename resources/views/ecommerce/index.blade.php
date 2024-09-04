@@ -1,6 +1,7 @@
 @extends('layouts.commerce')
 
 @section('content')
+
    <div class="bg-gradient-to-b ">
     <header class="">
         <div class="px-4 mx-auto sm:px-6 lg:px-8">
