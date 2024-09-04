@@ -187,36 +187,36 @@
   <aside class="main-sidebar">
     <!-- sidebar-->
     <section class="sidebar position-relative">
-    {{-- <div class="d-flex align-items-center logo-box justify-content-start d-md-block d-none">  
-      <a href="index.html" class="logo">
-        <div class="logo-mini">
-          <span class="light-logo"><img src="assets/images/logo-letter.png" alt="logo"></span>
-        </div>
-        <div class="logo-lg">
-          <span class="light-logo fs-36 fw-700">CRM<span class="text-primary">i</span></span>
-        </div>
-      </a>  
-    </div>  --}}
+    
     <div class="user-profile my-15 px-20 py-10 b-1 rounded10 mx-15">
       <div class="d-flex align-items-center justify-content-between">      
         <div class="image d-flex align-items-center">
             {{-- <img src="" class="rounded-0 me-10" alt="User Image"> --}}
-          <div>
-            <h4 class="mb-0 fw-600">Jassa</h4>
-            <p class="mb-0">Super Admin</p>
-          </div>
+            <div>
+                <h4 class="mb-0 fw-600">{{ Auth::user()->name }}</h4>
+                <p class="mb-0">{{ Auth::user()->role ?? 'User' }}</p>
+            </div>
         </div>
         <div class="info">
-          <a class="dropdown-toggle p-15 d-grid" data-bs-toggle="dropdown" href="#"></a>
-          <div class="dropdown-menu dropdown-menu-end">
-            <a class="dropdown-item" href="#"><i class="ti-user"></i> Profile</a>
-            <a class="dropdown-item" href="#"><i class="ti-email"></i> Inbox</a>
-            <a class="dropdown-item" href="#"><i class="ti-link"></i> Conversation</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#"><i class="ti-lock"></i> Logout</a>
-          </div>
+            <a class="dropdown-toggle p-15 d-grid" data-bs-toggle="dropdown" href="#"></a>
+            <div class="dropdown-menu dropdown-menu-end">
+                @auth
+                    {{-- <a class="dropdown-item" href="{{ route('profile.show') }}"><i class="ti-user"></i> Profile</a> --}}
+                    <a class="dropdown-item" href="#"><i class="ti-email"></i> Inbox</a>
+                    <a class="dropdown-item" href="#"><i class="ti-link"></i> Conversation</a>
+                    <div class="dropdown-divider"></div>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="dropdown-item"><i class="ti-lock"></i> Logout</button>
+                    </form>
+                @else
+                    <a class="dropdown-item" href="{{ route('login') }}"><i class="ti-lock"></i> Login</a>
+                    <a class="dropdown-item" href="{{ route('register') }}"><i class="ti-user"></i> Register</a>
+                @endauth
+            </div>
         </div>
-      </div>
+    </div>
+    
       </div>
       <div class="multinav">
       <div class="multinav-scroll" style="height: 97%;">  
@@ -230,35 +230,23 @@
           </a>
         </li>
         <li>
-          <a href="#">
-          <i class="icon-Chart-pie"><span class="path1"></span><span class="path2"></span></i>
-          <span>Reports</span>
-          </a>
+          <a href="{{ route('suppliers.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Suppliers</a>          
         </li>
         <li>
-          <a href="#">
-          <i class="icon-Wallet"><span class="path1"></span><span class="path2"></span></i>
-          <span>Expenses</span>
-          </a>
+          <a href="{{ route('categories.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Catagories</a>
         </li>
         <li>
-          <a href="#">
-          <i class="icon-User"><span class="path1"></span><span class="path2"></span></i>
-          <span>Support</span>
-          </a>
+          <a href="{{ route('products.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Products</a>
         </li>
         <li>
-          <a href="#">
-          <i class="icon-Chat2"></i>
-          <span>Chat</span>
-          </a>
+          <a href="{{ route('sales.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Sales</a>
+        
         </li>
         <li>
-          <a href="#">
-          <i class="icon-Add-user"><span class="path1"></span><span class="path2"></span></i>
-          <span>Contacts</span>
-          </a>
-        </li>          
+          <a href="{{ route('messages.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Contact</a>
+        
+        </li>
+                 
         <li class="header">Components</li>
         <li class="treeview">
           <a href="#">
@@ -277,219 +265,175 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="{{ route('customers.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Customers</a></li>
-              <li><a href="{{ route('suppliers.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Suppliers</a></li>
-              <li><a href="{{ route('categories.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Catagories</a></li>
-              <li><a href="{{ route('products.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Products</a></li>
-              <li><a href="{{ route('sales.index') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Sales</a></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
             </ul>
           </li>                        
                       
         
         </ul>
         
-        {{-- <div class="sidebar-widgets">
-          <div class="mx-25 mb-30 pb-20 side-bx bg-primary-light rounded20">
-          <div class="text-center">
-            <img src="assets/images/svg-icon/color-svg/custom-17.svg" class="sideimg p-5" alt="">
-            <h4 class="title-bx text-primary">View Full Report</h4>
-            <a href="#" class="py-10 fs-14 mb-0 text-primary">
-              Best CRM App here <i class="mdi mdi-arrow-right"></i>
-            </a>
-          </div>
-          </div>
-        <div class="copyright text-center m-25">
-          <p><strong class="d-block">Jassa</strong>  <script>document.write(new Date().getFullYear())</script> </p>
-        </div>
-        </div> --}}
+
       </div>
     </div>
     </section>
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <div class="container-full">
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-xl-3 col-md-6 col-12">
-          <div class="box bg-gradient-primary">
-            <div class="box-body">
-              <div class="d-flex align-items-center justify-content-between">
-                <div>
-                  <div  class="mx-auto w-60 position-relative"></div>
-                </div>
-                <div>
-                  <h4 class="mt-0 text-white">Total Customers</h4>
-                  <h3 class="fw-500 my-0 text-white">{{$customers}}</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6 col-12">
-          <div class="box">
-            <div class="box-body">
-              <div class="d-flex align-items-center justify-content-between">
-                <div class="w-80 h-80 rounded-circle bg-primary-light fs-40 text-center l-h-80">
-                  <span class="icon-Equalizer"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></span>
-                </div>
-                <div>
-                  <h4 class="mt-0">Total Sales</h4>
-                  <h3 class="fw-500 my-0">{{$sales}}</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6 col-12">
-          <div class="box">
-            <div class="box-body">
-              <div class="d-flex align-items-center justify-content-between">
-                {{-- <div class="w-60 h-80 rounded-circle bg-success-light fs-40 text-center l-h-85">
-                  <span ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
-                </div> --}}
-                <div>
-                  <h4 class="mt-0">Total Products Available-</h4>
-                  <h3 class="fw-500 my-0">{{$products}}</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6 col-12">
-          <div class="box">
-            <div class="box-body">
-              <div class="d-flex align-items-center justify-content-between">
-                <div class="w-80 h-80 rounded-circle bg-danger-light fs-40 text-center l-h-85">
-                  <span class="icon-Money"><span class="path1"></span><span class="path2"></span></span>
-                </div>
-                <div>
-                  <h4 class="mt-0">Total Suppliers</h4>
-                  <h3 class="fw-500 my-0">{{$suppliers}}</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-8 col-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Sales Overview</h3>
-            </div>
-            <div class="box-body">
-              <div class="d-flex mb-50 align-items-center justify-content-between max-w-300">
-                <div>
-                  <p class="mb-0 text-fade">Profit</p>
-                  <h3 class="my-0">$25K</h3>
-                  <p class="mb-0 text-success"><i class="fa fa-arrow-up me-5"></i>2.37%</p>
-                </div>
-                <div class="mx-30">
-                  <p class="mb-0 text-fade">Expense</p>
-                  <h3 class="my-0">$39K</h3>
-                  <p class="mb-0 text-success"><i class="fa fa-arrow-up me-5"></i>1.74%</p>
-                </div>
-                <div>
-                  <p class="mb-0 text-fade">Revenue</p>
-                  <h3 class="my-0">$208B</h3>
-                  <p class="mb-0 text-danger"><i class="fa fa-arrow-down me-5"></i>7.37%</p>
-                </div>
-              </div>
-              <div id="sales_overview"></div>
-            </div>
-          </div>
-        </div>
-       
-        
-        <div class="col-xl-8 col-12">
-          <div class="box box-body">
-            <div class="row">
-              <div class="col-lg-8 col-12">
-                <div class="box no-border mb-0 no-shadow">                  
-                  <div class="box-header no-border">
-                    <h3 class="box-title">Order Overview</h3>
-                    <ul class="box-controls">
-                      <li><button class="btn btn-xs btn-danger" href="#">Monthly</button></li>
-                      <li><button class="btn btn-xs btn-info" href="#">Weeks</button></li>
-                    </ul>
-                  </div>
-                  <div class="box-body p-0">
-                    <div id="order-summary-chart"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-12">
-                <div class="box mb-0 bg-lightest">
-                  <div class="box-header no-border pb-0">
-                    <h4 class="box-title">Top Products</h4>
-                  </div>
-                  <div class="box-body">
-                    <div class="d-flex justify-content-between align-items-center mb-10">
-                    <div>
-                      <h5 class="mb-0">iPod</h5>
+  <div class="content-wrapper bg-gray-100 min-h-screen p-6">
+    <div class="container mx-auto">
+        <!-- Main content -->
+        <section class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6 flex items-center justify-between">
+                        <div class="flex-shrink-0 w-16 h-16 bg-blue-800 rounded-full flex items-center justify-center">
+                            <!-- Icon here (optional) -->
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-semibold">Total Customers</h4>
+                            <h3 class="text-2xl font-bold">{{ $customers }}</h3>
+                        </div>
                     </div>
-                    <div>
-                      <h6 class="mb-0"><span class="text-success">+</span> $250</h6>
-                    </div>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mb-10">
-                    <div>
-                      <h5 class="mb-0">iMac</h5>
-                    </div>
-                    <div>
-                      <h6 class="mb-0"><span class="text-danger">-</span> $589</h6>
-                    </div>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <h5 class="mb-0">iPhone x</h5>
-                    </div>
-                    <div>
-                      <h6 class="mb-0"><span class="text-success">+</span> $1292</h6>
-                    </div>
-                    </div>
-                  </div>
-                  <div class="box-footer">
-                    <h4 class="mb-0">Total Sales</h4>
-                    <p class="text-primary fs-18 fw-700">$8,459k</p>
-                    <div class="progress">
-                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                      <span class="sr-only">40% Complete (primary)</span>
-                    </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6 flex items-center justify-between">
+                        <div class="flex-shrink-0 w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center text-3xl">
+                            <span class="icon-Equalizer"></span>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-semibold">Total Sales</h4>
+                            <h3 class="text-2xl font-bold">{{ $sales }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6 flex items-center justify-between">
+                        <div class="flex-shrink-0 w-16 h-16 bg-green-200 rounded-full flex items-center justify-center text-3xl">
+                            <span class="icon-Box"></span>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-semibold">Total Products Available</h4>
+                            <h3 class="text-2xl font-bold">{{ $products }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6 flex items-center justify-between">
+                        <div class="flex-shrink-0 w-16 h-16 bg-red-200 rounded-full flex items-center justify-center text-3xl">
+                            <span class="icon-Money"></span>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-semibold">Total Suppliers</h4>
+                            <h3 class="text-2xl font-bold">{{ $suppliers }}</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="col-xl-7 col-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Regional Sales</h3>
+
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="p-6 border-b border-gray-200">
+                    <h3 class="text-xl font-semibold">Sales Overview</h3>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="text-center">
+                            <p class="text-gray-600">Profit</p>
+                            <h3 class="text-2xl font-bold">$25K</h3>
+                            <p class="text-green-500"><i class="fa fa-arrow-up mr-2"></i>2.37%</p>
+                        </div>
+                        <div class="text-center mx-8">
+                            <p class="text-gray-600">Expense</p>
+                            <h3 class="text-2xl font-bold">$39K</h3>
+                            <p class="text-green-500"><i class="fa fa-arrow-up mr-2"></i>1.74%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-gray-600">Revenue</p>
+                            <h3 class="text-2xl font-bold">$208B</h3>
+                            <p class="text-red-500"><i class="fa fa-arrow-down mr-2"></i>7.37%</p>
+                        </div>
+                    </div>
+                    <div id="sales_overview"></div>
+                </div>
             </div>
-            <div class="box-body">              
-              <div id="regional_sales" class="h-500"></div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                        <h3 class="text-xl font-semibold">Order Overview</h3>
+                        <div class="flex space-x-2">
+                            <button class="bg-red-500 text-white py-1 px-3 rounded-md text-sm">Monthly</button>
+                            <button class="bg-blue-500 text-white py-1 px-3 rounded-md text-sm">Weeks</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div id="order-summary-chart"></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6 border-b border-gray-200">
+                        <h4 class="text-lg font-semibold">Top Products</h4>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h5 class="text-lg">iPod</h5>
+                            <h6 class="text-green-500">+ $250</h6>
+                        </div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h5 class="text-lg">iMac</h5>
+                            <h6 class="text-red-500">- $589</h6>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <h5 class="text-lg">iPhone X</h5>
+                            <h6 class="text-green-500">+ $1292</h6>
+                        </div>
+                    </div>
+                    <div class="p-6 border-t border-gray-200">
+                        <h4 class="text-xl font-bold">Total Sales</h4>
+                        <p class="text-blue-600 text-3xl font-bold">$8,459k</p>
+                        <div class="relative pt-1">
+                            <div class="flex items-center justify-between">
+                                <div class="text-xs font-semibold inline-block py-1 px-2 rounded-full text-teal-600 bg-teal-200">
+                                    40%
+                                </div>
+                            </div>
+                            <div class="relative pt-1">
+                                <div class="flex items-center justify-between">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-teal-500 h-2 rounded-full" style="width: 40%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="col-xl-5 col-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Sales By Customer Location</h3>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="text-xl font-semibold">Regional Sales</h3>
+                    </div>
+                    <div class="p-6">
+                        <div id="regional_sales" class="h-80"></div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="text-xl font-semibold">Sales By Customer Location</h3>
+                    </div>
+                    <div class="p-6">
+                        <div id="customer_location" class="h-80"></div>
+                    </div>
+                </div>
             </div>
-            <div class="box-body">              
-              <div id="customer_location" class="h-500"></div>
-            </div>
-          </div>
-        </div>
-        
-      </div>        
-    </section>
-    <!-- /.content -->
+        </section>
     </div>
-  </div>
+</div>
+
   <!-- /.content-wrapper -->
   
   <footer class="main-footer">
@@ -1090,7 +1034,7 @@
                         Privacy</a>
                   </div>
                 </div>
-                <div class="text-center flex-grow-1">
+               <div class="text-center flex-grow-1">
                     <div class="text-dark fs-18">Mayra Sibley</div>
                     <div>
                         <span class="badge badge-sm badge-dot badge-primary"></span>

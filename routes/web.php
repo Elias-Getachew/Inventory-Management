@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
@@ -60,6 +61,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //
+
+    
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index')->middleware('auth');
+    Route::post('/messages', [MessageController::class, 'store'])->name('messages.store')->middleware('auth');
 
     // Resource routes
     Route::resource('customers', CustomerController::class);
