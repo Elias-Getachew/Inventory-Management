@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use App\Models\Category;
@@ -20,8 +21,23 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        Category::create($request->all());
-        return redirect()->route('categories.index');
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'photo' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ]);
+
+        // Handle the file upload
+        if ($request->hasFile('photo')) {
+            $imageName = time() . '_' . uniqid() . '.' . $request->photo->extension();
+            $request->photo->storeAs('public/categories', $imageName);
+            $validatedData['photo'] = 'categories/' . $imageName;
+        }
+
+        // Create the category
+        Category::create($validatedData);
+
+        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
     }
 
     public function show(Category $category)
@@ -36,13 +52,28 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
-        $category->update($request->all());
-        return redirect()->route('categories.index');
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'photo' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ]);
+
+        // Handle the file upload
+        if ($request->hasFile('photo')) {
+            $imageName = time() . '_' . uniqid() . '.' . $request->photo->extension();
+            $request->photo->storeAs('public/categories', $imageName);
+            $validatedData['photo'] = 'categories/' . $imageName;
+        }
+
+        // Update the category
+        $category->update($validatedData);
+
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
     }
 }
